@@ -1,24 +1,28 @@
 # docker-compose.yml
 version: "3.8"
 
-services:
+sservices:
   app:
-    build: .
-    container_name: totp-auth-yashu
+    build:
+      context: .
+      dockerfile: Dockerfile
+
     ports:
       - "8080:8080"
+
     volumes:
       - seed-data:/data
       - cron-output:/cron
-      - ./cron/2fa-cron:/etc/cron.d/2fa-cron:ro
-      - ./scripts:/app/scripts
       - ./student_private.pem:/app/student_private.pem:ro
       - ./student_public.pem:/app/student_public.pem:ro
       - ./instructor_public.pem:/app/instructor_public.pem:ro
+
     environment:
       - TZ=UTC
+
     restart: unless-stopped
 
 volumes:
   seed-data:
   cron-output:
+
