@@ -1,6 +1,7 @@
+# docker-compose.yml
 version: "3.8"
 
-sservices:
+services:
   app:
     build: .
     container_name: totp-auth-yashu
@@ -9,7 +10,8 @@ sservices:
     volumes:
       - seed-data:/data
       - cron-output:/cron
-      # mount local key files read-only (helpful for local dev)
+      - ./cron/2fa-cron:/etc/cron.d/2fa-cron:ro
+      - ./scripts:/app/scripts
       - ./student_private.pem:/app/student_private.pem:ro
       - ./student_public.pem:/app/student_public.pem:ro
       - ./instructor_public.pem:/app/instructor_public.pem:ro
@@ -20,4 +22,3 @@ sservices:
 volumes:
   seed-data:
   cron-output:
-
