@@ -45,4 +45,5 @@ RUN mkdir -p /data /cron && chmod 755 /data /cron
 EXPOSE 8080
 
 # Start cron + API server
-CMD cron && python app.py
+CMD service cron start && python app.py
+
